@@ -42,5 +42,15 @@ def evenement_spec(id):
         return jsonify(evenements_df[evenements_df['id']==id].to_dict())
     return { "error": "Event not found" }, 404
 
+@app.route("/api/association/<int:id>/evenements", methods=['GET'])
+def assos_evenemnts(id):
+    if id in list(associations_df['id']):
+        return jsonify(evenements_df[evenements_df['association_id']==id].to_dict('split'))
+    return { "error": "Association not found" }, 404
+
+@app.route("/api/association/type/<type>", methods=['GET'])
+def assos_type(type):
+    return jsonify(associations_df[associations_df['type']==type].to_dict())
+
 if __name__ == '__main__':
     app.run(debug=False)
