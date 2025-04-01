@@ -20,11 +20,11 @@ evenements_df = pd.read_csv(data / 'evenements_associations.csv')
 
 @app.route("/api/alive", methods=['GET'])
 def alive():
-    return { "message": "Alive" }
+    return jsonify({ "message": "Alive" })
 
 @app.route("/api/associations", methods=['GET'])
 def assos():
-    return list(associations_df['id'])
+    return jsonify(list(associations_df['id']))
 
 @app.route("/api/association/<int:id>", methods=['GET'])
 def assos_spec(id):
@@ -34,7 +34,7 @@ def assos_spec(id):
 
 @app.route("/api/evenements", methods=['GET'])
 def evenements():
-    return list(evenements_df['id'])
+    return jsonify(list(evenements_df['id']))
 
 @app.route("/api/evenement/<int:id>", methods=['GET'])
 def evenement_spec(id):
