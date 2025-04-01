@@ -22,5 +22,25 @@ evenements_df = pd.read_csv(data / 'evenements_associations.csv')
 def alive():
     return { "message": "Alive" }
 
+@app.route("/api/associations", methods=['GET'])
+def assos():
+    return list(associations_df['id'])
+
+@app.route("/api/association/<int:id>", methods=['GET'])
+def assos_spec(id):
+    if id in list(associations_df['id']):
+        return jsonify(associations_df[associations_df['id']==id].to_dict())
+    return { "error": "Association not found" }, 404
+
+@app.route("/api/evenements", methods=['GET'])
+def evenements():
+    return list(evenements_df['id'])
+
+@app.route("/api/evenement/<int:id>", methods=['GET'])
+def evenement_spec(id):
+    if id in list(evenements_df['id']):
+        return jsonify(evenements_df[evenements_df['id']==id].to_dict())
+    return { "error": "Event not found" }, 404
+
 if __name__ == '__main__':
     app.run(debug=False)
